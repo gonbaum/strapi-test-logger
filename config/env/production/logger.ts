@@ -2,12 +2,12 @@ const { winston, formats } = require('@strapi/logger');
 const TransportStream = require('winston-transport');
 const { prettyPrint } = formats;
 
-class BaseTransport extends TransportStream {
+class ProductionTransport extends TransportStream {
   constructor(opts?: any) {
     super(opts);
   }
   log(info: any, callback: () => void) {
-    console.log(`[BASE TRANSPORT] ${info.level}: ${info.message}`);
+    console.log(`[PRODUCTION TRANSPORT] ${info.level}: ${info.message}`);
     callback();
   }
 }
@@ -18,6 +18,6 @@ export default {
       level: 'http',
       format: prettyPrint({ timestamps: 'YYYY-MM-DD HH:mm:ss.SSS' }),
     }),
-    new BaseTransport({ level: 'http' }),
+    new ProductionTransport({ level: 'http' }),
   ],
 };
